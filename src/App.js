@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import Header from "./components/Header/Header";
 import RegistrationPage from "./routes/RegistrationPage/RegistrationPage";
 import LangingPage from './routes/LandingPage/LandingPage';
+import Homepage from './routes/HomePage/HomePage'
 import TokenService from "./services/token-service";
 import './App.css';
 
@@ -27,6 +28,7 @@ class App extends Component{
         <Switch>
             <Route exact path={"/"} component={LangingPage} />
             <Route exact path={"/register"} component={RegistrationPage} />
+            <Route exact path={"/homepage"} component={Homepage} />
           </Switch>
         </main>
       </div>
