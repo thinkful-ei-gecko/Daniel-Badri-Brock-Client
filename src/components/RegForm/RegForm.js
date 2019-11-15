@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button, Input, Required } from "../Utils/Utils";
-/* import AuthApiService from "../../services/auth-api-service";
- */
+import AuthApiService from "../../services/auth-api-service";
+
 export default class RegistrationForm extends Component {
   static defaultProps = {
     onRegistrationSuccess: () => {}
@@ -9,27 +9,24 @@ export default class RegistrationForm extends Component {
 
   state = { error: null };
 
-  /* handleSubmit = ev => {
+  handleSubmit = ev => {
     ev.preventDefault();
-    const { username, fullname, password } = ev.target;
+    const { fullname, email } = ev.target;
 
     this.setState({ error: null });
 
-    AuthApiService.postUser({
-      fullname: fullname.value,
-      username: username.value,
-      password: password.value
-    })
-      .then(user => {
-        username.value = "";
-        fullname.value = "";
-        password.value = "";
-        this.props.onRegistrationSuccess();
-      })
-      .catch(res => {
-        this.setState({ error: res.error });
-      });
-  }; */
+    AuthApiService.postUser(
+      fullname.value
+    )
+      // .then(user => {
+      //   fullname.value = "";
+      //   email.value = "";
+      //   this.props.onRegistrationSuccess();
+      // })
+      // .catch(res => {
+      //   this.setState({ error: res.error });
+      // });
+  }; 
 
   render() {
     const { error } = this.state;
@@ -45,7 +42,7 @@ export default class RegistrationForm extends Component {
             type="text"
             placeholder="Test User"
             required
-            id="RegistrationFormFullName"
+            id="fullname"
           ></Input>
         </div>
         <div className="Email">
@@ -57,7 +54,7 @@ export default class RegistrationForm extends Component {
             type="email"
             placeholder="testuser"
             required
-            id="RegistrationFormEmail"
+            id="email"
           ></Input>
         </div>
         <Button type="submit" className="RegisterButton">Register</Button>

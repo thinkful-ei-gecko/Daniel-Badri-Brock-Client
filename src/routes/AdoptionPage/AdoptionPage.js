@@ -8,30 +8,11 @@ export default class AdoptionPage extends Component {
   state = {
     dogs: [],
     cats: [],
-    cats2: [],
   };
   componentDidMount() {
     PetApiService.getDogs().then(res => this.setState({ dogs: res }));
     PetApiService.getCats().then(res => this.setState({ cats: res }));
   }
-  //   renderCats() {
-  //     if (this.state.cats.length !== 0) {
-  //         let cat = this.state.cats
-
-  //         let cats = []
-  //         cats.push(cat)
-
-  //         while (cat.next !== null){
-  //           cat = cat.next
-  //           cats.push(cat)
-  //         }
-  //     return (cats.map(cat => {
-  //         <div>
-  //             {cat.value.name}
-  //         </div>
-  //         }
-  //     ))}
-  //   }
   renderDogs() {
     if (this.state.dogs.length !== 0) {
       let dog = this.state.dogs;
@@ -45,9 +26,16 @@ export default class AdoptionPage extends Component {
       }
 
       return dogs.map((dog, index) => {
-         return <DisplayAnimal animal={dog.value}/>
+          if (index === 0) {
+              return (
+                <>
+                    <DisplayAnimal key={index} animal={dog.value}/> 
+                    <button>Adopt</button>
+                </>
+              )
+          }
+         return <DisplayAnimal key={index} animal={dog.value}/>
       });
-
     }
   }
 
@@ -64,17 +52,26 @@ export default class AdoptionPage extends Component {
       }
 
       return cats.map((cat, index) => {
-         return <DisplayAnimal animal={cat.value}/>
+          if (index === 0) {
+              return (<>
+              <DisplayAnimal key={index} animal={cat.value}/>
+              <button>Adopt</button>
+              </>
+              )
+          }
+         return <DisplayAnimal key={index} animal={cat.value}/>
       });
     }
   }
 
   render() {
-    let {cats, dogs} = this.state
+
     return (
-        <div>
-      {this.renderDogs()}
-      {this.renderCats()}
+      <div>
+          <h1>Dogs</h1>
+        {this.renderDogs()}
+        <h1>Cats</h1>
+        {this.renderCats()}
       </div>
     )
   }
