@@ -46,6 +46,9 @@ class Header extends Component {
         <div className="HeaderNotLoggedIn">
           <Link to="/register">Register</Link>
         </div>
+        <div className="petsButton">
+          <Link to='/pets'>Pets</Link>
+        </div>
       </section>
     );
   }

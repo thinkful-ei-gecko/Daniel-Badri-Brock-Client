@@ -6,6 +6,7 @@ import LangingPage from './routes/LandingPage/LandingPage';
 import Homepage from './routes/HomePage/HomePage'
 import TokenService from "./services/token-service";
 import './App.css';
+import AdoptionPage from "./routes/AdoptionPage/AdoptionPage";
 
 class App extends Component{
   state = {
@@ -29,6 +30,7 @@ class App extends Component{
             <Route exact path={"/"} component={LangingPage} />
             <Route exact path={"/register"} component={RegistrationPage} />
             <Route exact path={"/homepage"} component={Homepage} />
+            <Route exact path={"/pets"} component={AdoptionPage} />
           </Switch>
         </main>
       </div>
