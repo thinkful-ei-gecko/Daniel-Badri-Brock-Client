@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "alias": "Daniel-Brock-Badri-Petful-App",
+  "name": "Petful-App",
+  "routes": [
+      {
+        "src": "^/static/(.*)",
+        "dest": "/static/$1"
+      },
+      {
+        "src": ".*",
+        "dest": "/index.html"
+      }
+  ]
+}

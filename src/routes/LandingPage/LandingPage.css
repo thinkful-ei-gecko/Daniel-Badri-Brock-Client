@@ -1,0 +1,35 @@
+.LandingPageContainer {
+  text-align: center;
+}
+
+.LandingPageLink {
+  border: 1px solid rgb(121, 224, 255);
+  border-radius: 5px;
+  padding: 5px;
+  color: white;
+}
+
+.landingPageInto {
+  background: rgb(37, 37, 37);
+  width: 40%;
+  border-radius: 6px;
+  margin: 0 auto;
+  padding: 15px;
+  border: rgb(121, 224, 255) 2px solid;
+  text-align: center;
+}
+
+.CreatedBy {
+  margin-top: 10rem;
+  width: auto;
+  color: rgb(150, 150, 150);
+}
+
+.Brockb {
+  border-bottom: 1px solid rgb(121, 224, 255);
+  color: white;
+}
+
+.LandingPageLink a:visited {
+  color: white;
+}
