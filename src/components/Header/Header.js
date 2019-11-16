@@ -2,8 +2,34 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import "./Header.css";
 import TokenService from "../../services/token-service";
+import AuthApiService from '../../services/auth-api-service'
 
 class Header extends Component {
+  state = {
+    users: [],
+    userPlaceInLine: 0
+  }
+  componentDidMount() {
+    AuthApiService.getUsers().then(res => this.setState({ users: res }));
+  }
+
+  getUserPlaceInLine(user){
+    let currentPosition = this.state.users
+    let count = 0
+    console.log(currentPosition.value)
+    if (this.state.users !== []) {
+    while (currentPosition !== user) {
+      count ++;
+      if (currentPosition.value === user) {
+        console.log(count)
+        return count
+      }
+      currentPosition = currentPosition.next
+    }
+    }
+    return 0
+  }
+
   handleLogoutClick = ev => {
     ev.preventDefault();
     this.props.changeUser(null);
@@ -16,18 +42,18 @@ class Header extends Component {
       <section className="HeaderContainer">
         <nav className="NavHeader">
             <h1>
-              <Link to="/homepage">Petful</Link>
+              <Link to="/">Petful</Link>
             </h1>
             <span className="HeaderTaglineWide">Adopt in Need.</span>
         </nav>
         <div className="HeaderLoggedInContainer">
-          <Link to="/homepage">
+          <Link to="/pets">
             <p>
-              Home
+              Pets
             </p>
           </Link>
           <p>
-            Your position in the Queue is: ...
+            Your position in the Queue is: {this.getUserPlaceInLine(this.props.user)}
           </p>
         </div>
       </section>
@@ -57,7 +83,7 @@ class Header extends Component {
     return (
       <>
         <div className="Header">
-          {this.props.user ? this.renderLogoutLink() : this.renderLoginLink()}
+          {TokenService.hasAuthToken() ? this.renderLogoutLink() : this.renderLoginLink()}
         </div>
       </>
     );

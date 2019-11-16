@@ -1,4 +1,5 @@
 import React from 'react';
+import './DisplayAnimal.css'
 
 export default function DisplayAnimal(props) {
   let { animal } = props;
@@ -9,7 +10,7 @@ export default function DisplayAnimal(props) {
         <h3>{animal.name}</h3>
       </div>
       <div className='image'>
-        <img src={animal.imageURL} alt={animal.imageDescription} />
+        <img className='image' src={animal.imageURL} alt={animal.imageDescription} />
       </div>
       <div className='info'>
         <span>{animal.sex}</span>, <span>{animal.age}</span>, <span>{animal.breed}</span>

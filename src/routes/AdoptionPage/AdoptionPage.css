@@ -1,0 +1,8 @@
+.cats {
+    display: flex;
+    flex-direction: row;
+}
+.dogs{
+    display: flex;
+    flex-direction: row;
+}

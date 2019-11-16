@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './AdoptionPage.css';
 import PetApiService from '../../services/pet-api-service';
 import DisplayAnimal from '../DisplayAnimal/DisplayAnimal'
+import TokenService from '../../services/token-service';
 
 export default class AdoptionPage extends Component {
   state = {
@@ -11,30 +12,41 @@ export default class AdoptionPage extends Component {
     error: [],
   };
   componentDidMount() {
-    PetApiService.getDogs().then(res => this.setState({ dogs: res }));
     PetApiService.getCats().then(res => this.setState({ cats: res }));
+    PetApiService.getDogs().then(res => this.setState({ dogs: res }));
   }
 
   handleAdoptCat() {
-    console.log('handle adopt')
-    PetApiService.adoptCat()
-    .then(this.props.history.push('/'))
+    if (TokenService.hasAuthToken()){
+      TokenService.clearAuthToken()
+      PetApiService.adoptCat()
+      .then(this.componentDidMount())
+      .then(this.props.history.push("/pets"))
+      .catch((error) => {
+      this.setState({error: error})
+    })
+    }
+    else (window.alert('Must register in order to adopt'))
+  }
+
+  handleAdoptDog() {
+    if(TokenService.hasAuthToken()){
+    TokenService.clearAuthToken()
+    PetApiService.adoptDog()
+    .then(this.componentDidMount())
+    .then(this.props.history.push("/pets"))
     .catch((error) => {
       this.setState({error: error})
     })
   }
-
-  handleAdoptDog() {
-    console.log('handle adopt')
-    PetApiService.adoptDog()
-    .then(this.props.history.push('/'))
-    .catch((error) => {
-      this.setState({error: error})
-    })
+  else (window.alert('Must register in order to adopt'))
   }
 
 
   renderDogs() {
+    if (!this.state.dogs) {
+      return ( <p>Sorry, no dogs</p>)
+    }
     if (this.state.dogs.length !== 0) {
       let dog = this.state.dogs;
 
@@ -93,9 +105,13 @@ export default class AdoptionPage extends Component {
     return (
       <div>
           <h1>Dogs</h1>
+          <div className='dogs'>
         {this.renderDogs()}
+        </div> 
         <h1>Cats</h1>
+        <div className='cats'>
         {this.renderCats()}
+        </div> 
       </div>
     )
   }
