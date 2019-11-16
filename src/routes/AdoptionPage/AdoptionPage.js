@@ -8,11 +8,32 @@ export default class AdoptionPage extends Component {
   state = {
     dogs: [],
     cats: [],
+    error: [],
   };
   componentDidMount() {
     PetApiService.getDogs().then(res => this.setState({ dogs: res }));
     PetApiService.getCats().then(res => this.setState({ cats: res }));
   }
+
+  handleAdoptCat() {
+    console.log('handle adopt')
+    PetApiService.adoptCat()
+    .then(this.props.history.push('/'))
+    .catch((error) => {
+      this.setState({error: error})
+    })
+  }
+
+  handleAdoptDog() {
+    console.log('handle adopt')
+    PetApiService.adoptDog()
+    .then(this.props.history.push('/'))
+    .catch((error) => {
+      this.setState({error: error})
+    })
+  }
+
+
   renderDogs() {
     if (this.state.dogs.length !== 0) {
       let dog = this.state.dogs;
@@ -30,7 +51,7 @@ export default class AdoptionPage extends Component {
               return (
                 <>
                     <DisplayAnimal key={index} animal={dog.value}/> 
-                    <button>Adopt</button>
+                    <button onClick={()=>{this.handleAdoptDog()}}>Adopt</button>
                 </>
               )
           }
@@ -40,6 +61,9 @@ export default class AdoptionPage extends Component {
   }
 
   renderCats() {
+    if (!this.state.cats) {
+      return ( <p>Sorry, no cats</p>)
+    }
     if (this.state.cats.length !== 0) {
       let cat = this.state.cats;
 
@@ -55,7 +79,7 @@ export default class AdoptionPage extends Component {
           if (index === 0) {
               return (<>
               <DisplayAnimal key={index} animal={cat.value}/>
-              <button>Adopt</button>
+              <button onClick={() => {this.handleAdoptCat()}}>Adopt</button>
               </>
               )
           }

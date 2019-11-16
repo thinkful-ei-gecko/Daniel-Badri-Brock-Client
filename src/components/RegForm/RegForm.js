@@ -16,16 +16,17 @@ export default class RegistrationForm extends Component {
     this.setState({ error: null });
 
     AuthApiService.postUser(
-      fullname.value
+      fullname.value,
+      email.value
     )
-      // .then(user => {
-      //   fullname.value = "";
-      //   email.value = "";
-      //   this.props.onRegistrationSuccess();
-      // })
-      // .catch(res => {
-      //   this.setState({ error: res.error });
-      // });
+      .then(user => {
+        fullname.value = "";
+        email.value = "";
+        this.props.onRegistrationSuccess();
+      })
+      .catch(res => {
+        this.setState({ error: res.error });
+      });
   }; 
 
   render() {
