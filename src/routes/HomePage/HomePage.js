@@ -74,9 +74,6 @@ export default class CollectionList extends React.Component {
         </span>
         ))}
         </div>
-        <p>
-          You have made it to the Homepage.
-        </p>
       </div>
     );
   }
