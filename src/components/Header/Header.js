@@ -29,7 +29,7 @@ class Header extends Component {
     AuthApiService.getUsers().then(res => this.setState({ users: res }));
   }
 
-  getUserPlaceInLine(user) {
+  /* getUserPlaceInLine(user) {
     let currentPosition = this.state.users;
     let count = 0;
     console.log(currentPosition.next);
@@ -42,10 +42,9 @@ class Header extends Component {
         }
         currentPosition = currentPosition.next;
       }
-      
-    }
+    } 
     return 0;
-  }
+  } */
 
   handleLogoutClick = ev => {
     ev.preventDefault();
@@ -69,7 +68,7 @@ class Header extends Component {
           </Link>
           <p>
             Your position in the Queue is:{" "}
-            {this.getUserPlaceInLine(this.props.user)}
+            {/* {this.getUserPlaceInLine(this.props.user)} */}
           </p>
         </div>
       </section>

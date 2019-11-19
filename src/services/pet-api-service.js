@@ -43,6 +43,16 @@ const PetApiService = {
       !res.osk ? res.json().then(e => Promise.reject(e)) : res.json()
     );
   },
+  getPlaceInLine(){
+    return fetch(`${config.API_ENDPOINT}/position`, {
+      headers: {
+        //Authorization: `bearer ${TokenService.getAuthToken()}`
+        "Content-type": "application.json"
+      }
+    }).then(res =>
+      !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()
+    );
+  }
   
 };
 
