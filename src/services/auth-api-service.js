@@ -1,10 +1,11 @@
 import config from "../config";
+import TokenService from '../services/token-service'
 
 const AuthApiService = {
   getUsers(){
     return fetch(`${config.API_ENDPOINT}/users`, {
       headers: {
-        // Authorization: `bearer ${TokenService.getAuthToken()}`
+        Authorization: `bearer ${TokenService.getAuthToken()}`,
         "Content-type": "application.json"
       }
     }).then(res =>

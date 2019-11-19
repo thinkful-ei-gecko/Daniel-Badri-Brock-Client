@@ -5,7 +5,7 @@ const PetApiService = {
   getCats() {
     return fetch(`${config.API_ENDPOINT}/cats`, {
       headers: {
-        // Authorization: `bearer ${TokenService.getAuthToken()}`
+        Authorization: `bearer ${TokenService.getAuthToken()}`,
         "Content-type": "application.json"
       }
     }).then(res =>
