@@ -7,44 +7,23 @@ import AuthApiService from "../../services/auth-api-service";
 class Header extends Component {
   state = {
     users: [
-      {
-        name: 'Steven'
-      },
-      {
-        name: 'Joey'
-      },
-      {
-        name: 'Anna'
-      },
-      {
-        name: 'Dave'
-      },
-      {
-        name: 'You'
-      }
     ],
-    userPlaceInLine: 0
   };
+
   componentDidMount() {
     AuthApiService.getUsers().then(res => this.setState({ users: res }));
   }
 
-  /* getUserPlaceInLine(user) {
-    let currentPosition = this.state.users;
-    let count = 0;
-    console.log(currentPosition.next);
-    if (this.state.users !== []) {
-      while (currentPosition !== user) {
-        count++;
-        if (currentPosition === user) {
-          console.log(count);
-          return count;
-        }
-        currentPosition = currentPosition.next;
-      }
-    } 
-    return 0;
-  } */
+  parseUsersQueue(que){
+    let currNode = que.value;
+    let newArr = [];
+
+    while(currNode !== null) {
+      newArr.push(currNode);
+      currNode = currNode.next.value;
+    }
+    return newArr;
+  }
 
   handleLogoutClick = ev => {
     ev.preventDefault();
@@ -54,6 +33,8 @@ class Header extends Component {
   };
 
   renderLogoutLink() {
+    console.log(this.parseUsersQueue(this.state.users))
+    const userlist = this.state.users.map(user => user.name + ', ');
     return (
       <section className="HeaderContainer">
         <nav className="NavHeader">
@@ -67,8 +48,7 @@ class Header extends Component {
             <p>Pets</p>
           </Link>
           <p>
-            Your position in the Queue is:{" "}
-            {/* {this.getUserPlaceInLine(this.props.user)} */}
+            Your position in the Queue is:{this.parseUsersQueue}
           </p>
         </div>
       </section>
