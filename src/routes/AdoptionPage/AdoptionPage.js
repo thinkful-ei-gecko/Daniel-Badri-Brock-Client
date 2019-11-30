@@ -12,6 +12,7 @@ export default class AdoptionPage extends Component {
     error: [],
   };
   componentDidMount() {
+    console.log(TokenService.getAuthToken())
     PetApiService.getCats().then(res => this.setState({ cats: res }));
     PetApiService.getDogs().then(res => this.setState({ dogs: res }));
   }
@@ -31,11 +32,11 @@ export default class AdoptionPage extends Component {
 
   handleAdoptDog() {
     if(TokenService.hasAuthToken()){
-    TokenService.clearAuthToken()
-    PetApiService.adoptDog()
-    .then(this.componentDidMount())
-    .then(this.props.history.push("/pets"))
-    .catch((error) => {
+      PetApiService.adoptDog()
+      .then(this.componentDidMount())
+      .then(this.props.history.push("/pets"))
+      .then(TokenService.clearAuthToken())
+      .catch((error) => {
       this.setState({error: error})
     })
   }

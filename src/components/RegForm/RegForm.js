@@ -12,6 +12,7 @@ export default class RegistrationForm extends Component {
   handleSubmit = ev => {
     ev.preventDefault();
     const { fullname, email } = ev.target;
+    const name = fullname.value
 
     this.setState({ error: null });
 
@@ -22,7 +23,7 @@ export default class RegistrationForm extends Component {
       .then(user => {
         fullname.value = "";
         email.value = "";
-        this.props.onRegistrationSuccess();
+        this.props.onRegistrationSuccess(name);
       })
       .catch(res => {
         this.setState({ error: res.error });

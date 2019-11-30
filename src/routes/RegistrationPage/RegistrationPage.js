@@ -10,7 +10,8 @@ export default class RegistrationPage extends Component {
   };
 
   handleRegistrationSuccess = user => {
-    TokenService.saveAuthToken(TokenService.makeBasicAuthToken(user))
+    console.log(user)
+    localStorage.setItem("name", user)
     const { history } = this.props;
     history.push("/pets");
   };
