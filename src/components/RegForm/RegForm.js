@@ -25,8 +25,8 @@ export default class RegistrationForm extends Component {
         email.value = "";
         this.props.onRegistrationSuccess(name);
       })
-      .catch(res => {
-        this.setState({ error: res.error });
+      .catch(error => {
+        this.setState({ error: error });
       });
   }; 
 
@@ -34,7 +34,7 @@ export default class RegistrationForm extends Component {
     const { error } = this.state;
     return (
       <form className="RegistrationForm" onSubmit={this.handleSubmit}>
-        <div role="alert">{error && <p className="red">{error}</p>}</div>
+        {/* <div role="alert">{error && <p className="red">{error}</p>}</div> */}
         <div className="FullName">
           <label htmlFor="RegistrationFormFullName">
             Full name <Required />

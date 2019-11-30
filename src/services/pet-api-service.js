@@ -42,8 +42,8 @@ const PetApiService = {
       !res.osk ? res.json().then(e => Promise.reject(e)) : res.json()
     );
   },
-  getPlaceInLine(){
-    return fetch(`${config.API_ENDPOINT}/position`, {
+  getLine(){
+    return fetch(`${config.API_ENDPOINT}/queue`, {
       headers: {
         Authorization: `${TokenService.getAuthToken()}`,
         "Content-type": "application.json"
