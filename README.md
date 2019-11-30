@@ -2,9 +2,9 @@
 
 Created by Daniel Nichols, Brock Boutwell, and Badri Tulsiram as part of Thinkful's Engineering Immersion Program.
 
-Link to live application: www.petful.sh //Finish deploy
+Link to live application: ADD DEPLOY HERE
 
-## Welcomme to Petful
+## Welcome to Petful
 
 Adopt pets that really need your love! Petful is a pet adoption application that works based on a first-in, first-out approach. Pets are allowed to be adopted in the order they arrive in the shelter, and potential adopters are served in the order they sign up for adoption. In this way, Petful makes a difficult descision easy for all pet lovers. How convenient!
 
