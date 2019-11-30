@@ -1,3 +1,32 @@
+# Petful client
+
+Created by Daniel Nichols, Brock Boutwell, and Badri Tulsiram as part of Thinkful's Engineering Immersion Program.
+
+Link to live application: www.petful.sh //Finish deploy
+
+## Welcomme to Petful
+
+Adopt pets that really need your love! Petful is a pet adoption application that works based on a first-in, first-out approach. Pets are allowed to be adopted in the order they arrive in the shelter, and potential adopters are served in the order they sign up for adoption. In this way, Petful makes a difficult descision easy for all pet lovers. How convenient!
+
+Get started by registering as a new user and adding yourself to the queue. You will then be taken to the adoption page, where you can see pets currently eligible for adoption, pets that are soon to be eligible, and your position in the queue of adopters. 
+
+## Technologies Used 
+
+The Petful Client was created using ReactJS and CSS. 
+
+## Screenshots
+
+
+
+
+
+## Thanks
+
+The developers would like to thank the entire Thinkful team for their guidance throughout the course of this project. We would also like to thank you for your interest in using our work. We hope that you will enjoy using this API as much as we have enjoyed building it.
+
+The following information pertains to getting started with your React app.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
