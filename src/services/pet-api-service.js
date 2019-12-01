@@ -17,7 +17,7 @@ const PetApiService = {
     return fetch(`${config.API_ENDPOINT}/cats`, {
       method: "DELETE",
       headers: {
-        Authorization: `bearer ${TokenService.getAuthToken()}`
+        Authorization: `${TokenService.getAuthToken()}`
       }
     }).then(res =>
       !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()
@@ -34,12 +34,12 @@ const PetApiService = {
   },
   adoptDog() {
     return fetch(`${config.API_ENDPOINT}/dogs`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
         Authorization: `${TokenService.getAuthToken()}`
       }
     }).then(res =>
-      !res.osk ? res.json().then(e => Promise.reject(e)) : res.json()
+      !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()
     );
   },
   getLine(){

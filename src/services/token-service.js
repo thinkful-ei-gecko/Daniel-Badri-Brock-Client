@@ -8,6 +8,7 @@ const TokenService = {
     return window.localStorage.getItem("name");
   },
   clearAuthToken() {
+    console.log('clearing')
     window.localStorage.removeItem("name");
   },
   hasAuthToken() {

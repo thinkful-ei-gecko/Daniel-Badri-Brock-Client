@@ -4,14 +4,16 @@ import './AdoptionPage.css';
 import PetApiService from '../../services/pet-api-service';
 import DisplayAnimal from '../DisplayAnimal/DisplayAnimal';
 import TokenService from '../../services/token-service';
+import {withRouter} from 'react-router-dom'
 
 export default class AdoptionPage extends Component {
   state = {
     dogs: [],
     cats: [],
-    error: [],
     queue: [],
+    error: null,
   };
+
   componentDidMount() {
     PetApiService.getLine().then(res => this.setState({ queue: res }));
     PetApiService.getCats().then(res => this.setState({ cats: res }));
@@ -20,12 +22,11 @@ export default class AdoptionPage extends Component {
 
   handleAdoptCat() {
     if (TokenService.hasAuthToken()) {
-      TokenService.clearAuthToken();
       PetApiService.adoptCat()
-        .then(this.componentDidMount())
-        .then(this.props.history.push('/pets'))
+        .then(TokenService.clearAuthToken())
+        .then(this.props.history.push('/success'))
         .catch(error => {
-          this.setState({ error: error });
+          this.setState(error);
         });
     } else window.alert('Must register in order to adopt');
   }
@@ -33,14 +34,10 @@ export default class AdoptionPage extends Component {
   handleAdoptDog() {
     if (TokenService.hasAuthToken()) {
       PetApiService.adoptDog()
-        .then(() => {
-          TokenService.clearAuthToken();
-        })
-        .then(this.componentDidMount())
-        .then(this.props.history.push('/pets'))
+        .then(TokenService.clearAuthToken())
+        .then(this.props.history.push('/success'))
         .catch(error => {
-          this.setState(error);
-          console.log(this.state.error);
+          this.setState(error)
         });
     } else window.alert('Must register in order to adopt');
   }
@@ -60,80 +57,67 @@ export default class AdoptionPage extends Component {
   }
 
   renderDogs() {
+    let dogs = this.state.dogs;
     if (!this.state.dogs) {
       return <p>Sorry, no dogs</p>;
     }
-    if (this.state.dogs.length !== 0) {
-      let dog = this.state.dogs;
 
-      let dogs = [];
-      dogs.push(dog);
-
-      while (dog.next !== null) {
-        dog = dog.next;
-        dogs.push(dog);
+    return dogs.map((dog, index) => {
+      if (index === 0) {
+        return (
+          <li key={dog.id} className="animal">
+            <DisplayAnimal animal={dog} />
+            {this.state.error ? (
+              <span className="wait">{this.state.error}</span>
+            ) : null}
+            <button
+              onClick={() => {
+                this.handleAdoptDog();
+              }}
+            >
+              Adopt
+            </button>
+          </li>
+        );
       }
-
-      return dogs.map((dog, index) => {
-        if (index === 0) {
-          return (
-            <div className="animal">
-              <DisplayAnimal key={index} animal={dog.value} />
-              {this.state.error ? (
-                <span className="wait">{this.state.error}</span>
-              ) : null}
-              <button
-                onClick={() => {
-                  this.handleAdoptDog();
-                }}
-              >
-                Adopt
-              </button>
-            </div>
-          );
-        }
-        return <DisplayAnimal key={index} animal={dog.value} />;
-      });
-    }
+      return (
+        <li key={dog.id}>
+          <DisplayAnimal animal={dog} />
+        </li>
+      );
+    });
   }
 
   renderCats() {
+    let cats = this.state.cats;
     if (!this.state.cats) {
       return <p>Sorry, no cats</p>;
     }
-    if (this.state.cats.length !== 0) {
-      let cat = this.state.cats;
+    return cats.map((cat, index) => {
+      if (index === 0) {
+        return (
+          <li key={cat.id} className="animal">
+            <DisplayAnimal key={cat.id} animal={cat} />
+            {this.state.error ? (
+              <span className="wait">{this.state.error}</span>
+            ) : null}
 
-      let cats = [];
-      cats.push(cat);
-
-      while (cat.next !== null) {
-        cat = cat.next;
-        cats.push(cat);
+            <button
+              onClick={() => {
+                this.handleAdoptCat();
+              }}
+            >
+              Adopt
+            </button>
+          </li>
+        );
       }
-
-      return cats.map((cat, index) => {
-        if (index === 0) {
-          return (
-            <div className="animal">
-              <DisplayAnimal key={index} animal={cat.value} />
-              {this.state.error ? (
-                <span className="wait">{this.state.error}</span>
-              ) : null}
-
-              <button
-                onClick={() => {
-                  this.handleAdoptCat();
-                }}
-              >
-                Adopt
-              </button>
-            </div>
-          );
-        }
-        return <DisplayAnimal key={index} animal={cat.value} />;
-      });
-    }
+      return (
+        <li key={cat.id}>
+          <DisplayAnimal animal={cat} />
+        </li>
+      );
+    });
   }
 
   render() {
@@ -147,20 +131,15 @@ export default class AdoptionPage extends Component {
         <div className="dogs">{this.renderDogs()}</div>
         <h1>Cats</h1>
         <div className="cats">{this.renderCats()}</div>
+        <p className="CreatedBy">
+          || Petful App Created by ||
+          <br />
+          <br />
+          <span className="Brockb">
+            Daniel Nichols - Brock Boutwell - Badri Narayana Tulsiram
+          </span>
+        </p>
       </div>
     );
   }
 }
-
-// <div className='adoptionQ'>
-// {this.state.cats.length === 0 ? (
-//   <p> No cats!</p>
-// ) : (
-//   <div>
-//     {/* {cats.map(cat =>
-//             cat.value.name
-//         )} */}
-//   </div>
-// )}
-// </div>
-// );
