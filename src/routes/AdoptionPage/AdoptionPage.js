@@ -70,13 +70,13 @@ export default class AdoptionPage extends Component {
             {this.state.error ? (
               <span className="wait">{this.state.error}</span>
             ) : null}
-            <button
+            <Link to='/success'><button
               onClick={() => {
                 this.handleAdoptDog();
               }}
             >
               Adopt
-            </button>
+            </button></Link>
           </li>
         );
       }
