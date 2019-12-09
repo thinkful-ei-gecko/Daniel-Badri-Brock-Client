@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import './AdoptionPage.css';
 import PetApiService from '../../services/pet-api-service';
 import DisplayAnimal from '../DisplayAnimal/DisplayAnimal';
 import TokenService from '../../services/token-service';
-import {withRouter} from 'react-router-dom'
 
 export default class AdoptionPage extends Component {
   state = {
@@ -24,7 +22,9 @@ export default class AdoptionPage extends Component {
     if (TokenService.hasAuthToken()) {
       PetApiService.adoptCat()
         .then(TokenService.clearAuthToken())
-        .then(this.props.history.push('/success'))
+        .then(() => {
+          this.props.history.push('/success');
+        })
         .catch(error => {
           this.setState(error);
         });
@@ -35,9 +35,11 @@ export default class AdoptionPage extends Component {
     if (TokenService.hasAuthToken()) {
       PetApiService.adoptDog()
         .then(TokenService.clearAuthToken())
-        .then(this.props.history.push('/success'))
+        .then(() => {
+          this.props.history.push('/success');
+        })
         .catch(error => {
-          this.setState(error)
+          this.setState(error);
         });
     } else window.alert('Must register in order to adopt');
   }

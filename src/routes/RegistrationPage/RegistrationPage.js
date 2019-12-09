@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import RegistrationForm from "../../components/RegForm/RegForm";
-import TokenService from '../../services/token-service'
 
 export default class RegistrationPage extends Component {
   static defaultProps = {
@@ -10,7 +9,6 @@ export default class RegistrationPage extends Component {
   };
 
   handleRegistrationSuccess = user => {
-    console.log(user)
     localStorage.setItem("name", user)
     const { history } = this.props;
     history.push("/pets");

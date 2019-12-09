@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import "./Header.css";
 import TokenService from "../../services/token-service";
-import AuthApiService from "../../services/auth-api-service";
 
 class Header extends Component {
 

@@ -1,4 +1,3 @@
-import config from "../config";
 
 const TokenService = {
   saveAuthToken(token) {
@@ -8,7 +7,6 @@ const TokenService = {
     return window.localStorage.getItem("name");
   },
   clearAuthToken() {
-    console.log('clearing')
     window.localStorage.removeItem("name");
   },
   hasAuthToken() {
