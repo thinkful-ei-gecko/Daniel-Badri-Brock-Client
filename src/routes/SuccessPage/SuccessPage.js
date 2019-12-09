@@ -6,7 +6,7 @@ export default class SuccessPage extends Component {
   render() {
     return (
       <div className="LandingPageContainer">
-        <h1>Welcome to Petful!</h1>
+        <h1>Congrats!</h1>
         <br />
         <p className="landingPageInto">
           Thank you for using Petful!

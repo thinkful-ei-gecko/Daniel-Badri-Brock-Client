@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './AdoptionPage.css';
 import PetApiService from '../../services/pet-api-service';
 import DisplayAnimal from '../DisplayAnimal/DisplayAnimal';
 import TokenService from '../../services/token-service';
+import { withRouter } from 'react-router-dom';
 
 export default class AdoptionPage extends Component {
   state = {
@@ -72,13 +74,13 @@ export default class AdoptionPage extends Component {
             {this.state.error ? (
               <span className="wait">{this.state.error}</span>
             ) : null}
-            <Link to='/success'><button
+            <button
               onClick={() => {
                 this.handleAdoptDog();
               }}
             >
               Adopt
-            </button></Link>
+            </button>
           </li>
         );
       }
