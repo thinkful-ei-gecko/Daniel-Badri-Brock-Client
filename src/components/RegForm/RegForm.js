@@ -12,7 +12,6 @@ export default class RegistrationForm extends Component {
   handleSubmit = ev => {
     ev.preventDefault();
     const { fullname, email } = ev.target;
-    const name = fullname.value
 
     this.setState({ error: null });
 
@@ -23,7 +22,7 @@ export default class RegistrationForm extends Component {
       .then(user => {
         fullname.value = "";
         email.value = "";
-        this.props.onRegistrationSuccess(name);
+        this.props.onRegistrationSuccess(user);
       })
       .catch(error => {
         this.setState({ error: error });
@@ -34,7 +33,7 @@ export default class RegistrationForm extends Component {
     const { error } = this.state;
     return (
       <form className="RegistrationForm" onSubmit={this.handleSubmit}>
-        {/* <div role="alert">{error && <p className="red">{error}</p>}</div> */}
+        <div role="alert">{error && <p className="red">{error}</p>}</div>
         <div className="FullName">
           <label htmlFor="RegistrationFormFullName">
             Full name <Required />

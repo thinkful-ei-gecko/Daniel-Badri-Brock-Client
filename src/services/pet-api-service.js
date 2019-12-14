@@ -19,17 +19,10 @@ const PetApiService = {
         Authorization: `${TokenService.getAuthToken()}`,
       },
     })
-      .then(res => {
-        if (!res.ok) {
-          return res.json().then(error => {
-            throw error;
-          });
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  },
+    .then(res => 
+      !res.ok ? res.json().then(e => Promise.reject(e)) : undefined)
+},
+    
   getDogs() {
     return fetch(`${config.API_ENDPOINT}/dogs`, {
       headers: {
@@ -46,16 +39,9 @@ const PetApiService = {
         Authorization: `${TokenService.getAuthToken()}`,
       },
     })
-      .then(res => {
-        if (!res.ok) {
-          return res.json().then(error => {
-            throw error;
-          });
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
+      .then(res => 
+        !res.ok ? res.json().then(e => Promise.reject(e)) : undefined
+      )
   },
   getLine() {
     return fetch(`${config.API_ENDPOINT}/queue`, {

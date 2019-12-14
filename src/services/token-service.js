@@ -1,13 +1,13 @@
 
 const TokenService = {
   saveAuthToken(token) {
-    window.localStorage.setItem("name", token);
+    window.localStorage.setItem("id", token);
   },
   getAuthToken() {
-    return window.localStorage.getItem("name");
+    return window.localStorage.getItem("id");
   },
   clearAuthToken() {
-    window.localStorage.removeItem("name");
+    window.localStorage.removeItem("id");
   },
   hasAuthToken() {
     return !!TokenService.getAuthToken();

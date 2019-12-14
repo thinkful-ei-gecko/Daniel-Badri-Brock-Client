@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import './AdoptionPage.css';
 import PetApiService from '../../services/pet-api-service';
 import DisplayAnimal from '../DisplayAnimal/DisplayAnimal';
 import TokenService from '../../services/token-service';
-import { withRouter } from 'react-router-dom';
+import {withRouter} from 'react-router-dom'
 
-export default class AdoptionPage extends Component {
+class AdoptionPage extends Component {
   state = {
     dogs: [],
     cats: [],
@@ -19,16 +18,16 @@ export default class AdoptionPage extends Component {
     PetApiService.getCats().then(res => this.setState({ cats: res }));
     PetApiService.getDogs().then(res => this.setState({ dogs: res }));
   }
+  
 
   handleAdoptCat() {
     if (TokenService.hasAuthToken()) {
       PetApiService.adoptCat()
-        .then(TokenService.clearAuthToken())
         .then(() => {
           this.props.history.push('/success');
         })
         .catch(error => {
-          this.setState(error);
+          this.setState({error: error.error});
         });
     } else window.alert('Must register in order to adopt');
   }
@@ -36,34 +35,33 @@ export default class AdoptionPage extends Component {
   handleAdoptDog() {
     if (TokenService.hasAuthToken()) {
       PetApiService.adoptDog()
-        .then(TokenService.clearAuthToken())
         .then(() => {
-          this.props.history.push('/success');
+        this.props.history.push('/success')
         })
-        .catch(error => {
-          this.setState(error);
-        });
+        .catch((error) => {
+          this.setState({error: error.error})
+        })
     } else window.alert('Must register in order to adopt');
   }
 
   renderQueue() {
     let { queue } = this.state;
-    return queue.map(name => {
-      if (name === TokenService.getAuthToken()) {
+    return queue.map(users => {
+      if (parseInt(users.id) === parseInt(TokenService.getAuthToken())) {
         return (
-          <li key={name}>
-            <span className="position">{name}</span> (You)
+          <li key={users.id}>
+            <span className="position">{users.name}</span> (You)
           </li>
         );
       }
-      return <li key={name}>{name}</li>;
+      return <li key={users.id}>{users.name}</li>;
     });
   }
 
   renderDogs() {
     let dogs = this.state.dogs;
-    if (!this.state.dogs) {
-      return <p>Sorry, no dogs</p>;
+    if (!dogs.length) {
+      return <p>Sorry! We are out of dogs for adoption. Please check back soon!</p>;
     }
 
     return dogs.map((dog, index) => {
@@ -94,8 +92,8 @@ export default class AdoptionPage extends Component {
 
   renderCats() {
     let cats = this.state.cats;
-    if (!this.state.cats) {
-      return <p>Sorry, no cats</p>;
+    if (!cats.length) {
+      return <p>Sorry! We are out of cats for adoption. PLease check back soon!</p>;
     }
     return cats.map((cat, index) => {
       if (index === 0) {
@@ -147,3 +145,5 @@ export default class AdoptionPage extends Component {
     );
   }
 }
+
+export default withRouter(AdoptionPage)

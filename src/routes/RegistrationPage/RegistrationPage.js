@@ -9,7 +9,7 @@ export default class RegistrationPage extends Component {
   };
 
   handleRegistrationSuccess = user => {
-    localStorage.setItem("name", user)
+    localStorage.setItem("id", user.id)
     const { history } = this.props;
     history.push("/pets");
   };
